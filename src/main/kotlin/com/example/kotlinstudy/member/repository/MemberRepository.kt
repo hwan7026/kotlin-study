@@ -1,8 +1,7 @@
 package com.example.kotlinstudy.member.repository
 
 import com.example.kotlinstudy.member.domain.entity.Member
-import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.stereotype.Repository
+import org.bson.types.ObjectId
+import org.springframework.data.mongodb.repository.MongoRepository
 
-@Repository
-interface MemberRepository : JpaRepository<Member, Long>
+interface MemberRepository : MongoRepository<Member, ObjectId>

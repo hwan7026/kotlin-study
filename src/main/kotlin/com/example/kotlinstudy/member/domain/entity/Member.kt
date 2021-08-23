@@ -3,24 +3,27 @@ package com.example.kotlinstudy.member.domain.entity
 import ReqMemberUpdateDTO
 import com.example.kotlinstudy.member.domain.dto.ReqMemberSaveDTO
 import com.example.kotlinstudy.member.domain.enums.GenderType
+import com.querydsl.core.annotations.QueryEntity
 import io.swagger.v3.oas.annotations.media.Schema
-import lombok.Getter
 import lombok.Setter
+import org.bson.types.ObjectId
 import org.springframework.data.annotation.CreatedDate
-import javax.persistence.Id
 import org.springframework.data.annotation.LastModifiedDate
+import org.springframework.data.mongodb.core.mapping.Document
+import org.springframework.data.mongodb.core.mapping.MongoId
 import java.time.LocalDateTime
-import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
+import javax.persistence.Id
 
-@Getter
-@Entity
+@Schema(title = "고객 정보", hidden = true)
+@QueryEntity
+@Document
 class Member (
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id : Long = 0,
+    @field:Schema(title = "고객 ID")
+    @field:MongoId
+    var id : ObjectId? = null,
     @field:Schema(title = "이메일")
     var email : String? = null,
     @field:Schema(title = "이름")
@@ -55,7 +58,7 @@ class Member (
         phone = memberSaveDTO.phone
     )
     constructor(memberUpdateDTO: ReqMemberUpdateDTO) :this(
-        id = memberUpdateDTO.id,
+        id = ObjectId(memberUpdateDTO.id.toString()),
         email = memberUpdateDTO.email,
         name = memberUpdateDTO.name,
         gender = memberUpdateDTO.gender,

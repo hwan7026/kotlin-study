@@ -21,20 +21,20 @@ class MemberController(
 
     @Operation(summary = "회원 정보 조회")
     @GetMapping("/{id}")
-    fun getMember(@PathVariable id: Long) : CommonResponse<ResMemberDTO> {
+    fun getMember(@PathVariable id: String) : CommonResponse<ResMemberDTO> {
         return memberService.findById(id)
     }
 
     @Operation(summary = "회원 정보 저장")
     @PostMapping
-    fun saveMember(@RequestBody @Valid memberSaveDTO: ReqMemberSaveDTO) : CommonResponse<ResMemberDTO> {
+    fun saveMember(@RequestBody memberSaveDTO: ReqMemberSaveDTO) : CommonResponse<ResMemberDTO> {
         return memberService.saveMember(memberSaveDTO)
     }
 
     @Operation(summary = "회원 정보 수정")
     @PatchMapping("/{id}")
     fun updateMember(
-        @Parameter(description = "member ID")@PathVariable id: Long,
+        @Parameter(description = "member ID")@PathVariable id: String,
         @RequestBody @Valid memberUpdateDTO: ReqMemberUpdateDTO
     ) : CommonResponse<ResMemberDTO> {
         return memberService.updateMember(memberUpdateDTO.setId(id))
@@ -42,7 +42,7 @@ class MemberController(
 
     @Operation(summary = "회원 정보 삭제")
     @DeleteMapping("/{id}")
-    fun deleteMember(@PathVariable id: Long) : ResponseEntity<Any> {
+    fun deleteMember(@PathVariable id: String) : ResponseEntity<Any> {
         return ResponseEntity.ok(memberService.deleteById(id))
     }
 }

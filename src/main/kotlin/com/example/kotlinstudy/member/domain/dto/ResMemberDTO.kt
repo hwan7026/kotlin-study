@@ -10,7 +10,7 @@ import javax.validation.constraints.NotEmpty
 
 data class ResMemberDTO(
 
-    var id : Long? = null,
+    var id : String? = null,
     @field:Schema(title = "이메일")
     @field:NotNull
     var email : String? = null,
@@ -27,7 +27,7 @@ data class ResMemberDTO(
     var phone : String? = null
 ) {
     constructor(member: Member) :this(
-        id = member.id,
+        id = member.id.toString(),
         email = member.email,
         name = member.name,
         gender = member.gender,

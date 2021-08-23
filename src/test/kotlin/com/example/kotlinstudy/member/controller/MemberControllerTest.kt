@@ -6,6 +6,7 @@ import com.example.kotlinstudy.member.domain.entity.Member
 import com.example.kotlinstudy.member.domain.enums.GenderType
 import com.example.kotlinstudy.member.repository.MemberRepository
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.bson.types.ObjectId
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -31,11 +32,8 @@ import org.springframework.web.filter.CharacterEncodingFilter
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 class MemberControllerTest (
     val memberRepository: MemberRepository,
-    val webApplicationContext : WebApplicationContext
+    val webApplicationContext : WebApplicationContext,
 ){
-
-    @Autowired
-    lateinit var memberController : MemberController
 
     @Autowired
     lateinit var mockMvc: MockMvc
@@ -43,7 +41,9 @@ class MemberControllerTest (
     @Autowired
     lateinit var mapper: ObjectMapper
 
-    val url = "/api/v1/member"
+    val MEMBER_URL = "/api/v1/member"
+
+    private lateinit var defaultProductObjectId: ObjectId
 
     @BeforeEach
     fun beforeSetup(){
@@ -52,9 +52,9 @@ class MemberControllerTest (
             CharacterEncodingFilter("UTF-8", true))
             .build()
 
-        memberRepository.save(
+        val member = memberRepository.save(
             Member(
-                1L,
+                ObjectId.get(),
                 "test@email.com",
                 "이승환",
                 GenderType.MAN,
@@ -62,13 +62,14 @@ class MemberControllerTest (
                 "010-4331-7026"
             )
         )
+        defaultProductObjectId = member.id!!
     }
 
     @DisplayName("회원 정보 확인 테스트")
     @Test
     fun getMemberTest() {
         mockMvc.perform(
-            get("$url/1")
+            get("$MEMBER_URL/$defaultProductObjectId")
         )
         .andExpect(status().isOk)
         .andDo(print())
@@ -88,7 +89,7 @@ class MemberControllerTest (
 
         this.mockMvc
             .perform(
-                post(url)
+                post(MEMBER_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsBytes(request)))
             .andExpect(status().isOk)
@@ -106,9 +107,10 @@ class MemberControllerTest (
 
         this.mockMvc
         .perform(
-            patch("$url/1")
+            patch("$MEMBER_URL/$defaultProductObjectId")
             .contentType(MediaType.APPLICATION_JSON)
             .content(mapper.writeValueAsBytes(request)))
+            .andExpect(status().isOk)
 
     }
 
@@ -116,6 +118,7 @@ class MemberControllerTest (
     fun deleteMember() {
         this.mockMvc
             .perform(
-                delete("$url/1"))
+                delete("$MEMBER_URL/$defaultProductObjectId"))
+            .andExpect(status().isOk)
     }
 }

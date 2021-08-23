@@ -22,9 +22,9 @@ class ReqMemberUpdateDTO (
 ) {
 
     @field:Schema(title = "member ID")
-    var id : Long = 0
+    var id : String? = null
 
-    fun setId(id: Long): ReqMemberUpdateDTO {
+    fun setId(id: String): ReqMemberUpdateDTO {
         this.id = id
         return this
     }

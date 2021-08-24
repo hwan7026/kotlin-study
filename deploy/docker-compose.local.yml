@@ -1,0 +1,55 @@
+## docker-compose 셋팅
+## 파일 규격 버전 3인 경우 최신 버전 (https://docs.docker.com/compose/compose-file/compose-versioning/)
+version : '3'
+
+services:
+  ## 서비스명 docker-compose up -d [서비스명] 으로 구분
+  ## 여러 서비스가 있으면 해당 서비스만 구동 가능
+  ## 서비스명이 중복되면 오류가 발생하므로 중복되는 변수명 조심 , 중복 되는 경우에는 서비스명 변경
+  ## SERVICE 명(jar 파일 이름 앞자리와 동일해야함, docker-compose '서비스명-profile'과 같아야함 ex service-dev)
+  product-apis:
+    ## 빌드시 생성되는 이미지명과 태그명을 auto_apply.sh 로부터 전달 받아서 지정한다
+    ##[docker build 이름]/[package 명] <- 확실하게 알아보고 다시 적기 @TODO
+    ## 서비스에 사용할 도커 이미지 등록
+    image: loacldevops/kotlin-study #image 가 설치 되어있는 경로
+    ## 컨테이너 명을 auto_apply.sh 로부터 전달 받아서 지정한다 <- @공부
+    container_name: "kotlin-study"
+    ## 항상 재기동 되는 옵션
+    # no: 문제가 발생하여 container가 중지된 경우 재시작 하지 않음(default)
+    # always: 어떠한 문제로 container가 중지되는 경우 무조건 재시작
+    # on-failure: 컨테이너가 오직 에러로 인해 중된 되었을 경우에만 다시 시작
+    # unless-stopped: 우리가 강제적으로 중단 시킨게 아니라면 항상 컨테이너를 다시 시작 시킨다
+    # restart: always
+    ## HOST 포트와 컨테이너 포트를 auto_apply.sh 로부터 전달 받아서 지정
+    ports:
+      - 9003:9003
+    expose:
+      - 9003
+    user: 1000:1000
+    ## Docker 컨테이너와 HOST 디렉토리 맵핑
+    volumes:
+      - ./logs:/home/ubuntu/logs
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      TZ: 'Asia/Seoul'
+      COMPOSE_PROJECT_NAME: 'kotlin-study'
+
+  ## Docker 내부에서 실행되는 Docker 컨테이너 log
+  logspout:
+    image: gliderlabs/logspout:latest
+    volumes:
+      - /etc/hostname:/etc/host_hostname:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - product-apis
+    command:
+      syslog://product-apis:9003
+    deploy:
+      mode: global
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 256M
+        reservations:
+            cpus: '0.10'
+            memory: 128M

@@ -23,6 +23,12 @@ class SwaggerConfig {
     @Value("\${springdoc.app-title}")
     val appTitle: String? =null
 
+    /**
+     * Swagger v3 문서의 info 설정을 위해 SecurityScheme 추가?
+     * bearerFormat JWT HEADER 추가 , 인증 방식 Authorization
+     * @param appVersion String
+     * @return OpenAPI
+     */
     @Bean
     fun customOpenAPI(@Value("\${springdoc.version}") appVersion: String): OpenAPI {
         val basicAuth = SecurityScheme()

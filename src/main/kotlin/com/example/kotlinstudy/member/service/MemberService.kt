@@ -33,11 +33,11 @@ class MemberService(
         return CommonResponse(ResMemberDTO(member))
     }
 
-    fun deleteById(id: Long) {
+    fun deleteById(id: Long) =
         memberRepository.findByIdOrNull(id)?.let {
             it.deletedAt = LocalDateTime.now()
             it.deleteFlag = true
             memberRepository.save(it)
         }
-    }
+
 }

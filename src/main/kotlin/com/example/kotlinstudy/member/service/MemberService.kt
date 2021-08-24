@@ -17,8 +17,8 @@ class MemberService(
     val memberRepository: MemberRepository
 ) {
 
-    fun findById(id: String): CommonResponse<ResMemberDTO> {
-        val member = memberRepository.findByIdOrNull(ObjectId(id)) ?: throw DataNotFountException("Data Not Found")
+    fun findById(id: Long): CommonResponse<ResMemberDTO> {
+        val member = memberRepository.findByIdOrNull(id) ?: throw DataNotFountException("Data Not Found")
         return CommonResponse(ResMemberDTO(member))
     }
 
@@ -28,13 +28,13 @@ class MemberService(
     }
 
     fun updateMember(memberUpdateDTO: ReqMemberUpdateDTO): CommonResponse<ResMemberDTO> {
-        memberRepository.findByIdOrNull(ObjectId(memberUpdateDTO.id)) ?: throw DataNotFountException("Data Not Found")
+        memberRepository.findByIdOrNull(memberUpdateDTO.id) ?: throw DataNotFountException("Data Not Found")
         val member = memberRepository.save(Member(memberUpdateDTO))
         return CommonResponse(ResMemberDTO(member))
     }
 
-    fun deleteById(id: String) {
-        memberRepository.findByIdOrNull(ObjectId(id))?.let {
+    fun deleteById(id: Long) {
+        memberRepository.findByIdOrNull(id)?.let {
             it.deletedAt = LocalDateTime.now()
             it.deleteFlag = true
             memberRepository.save(it)

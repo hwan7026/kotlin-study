@@ -14,35 +14,33 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/v1/member")
+// API 그룹 설정 및 태그 설명(name 같으면 그룹으로 설정)
 @Tag(name = "[회원]", description = "MemberController")
 class MemberController(
     val memberService: MemberService
 ){
-
-    @Operation(summary = "회원 정보 조회")
+    /**
+     * summary : API 간략 설명
+     * description : API 대한 상세 설명
+     * responses : API Response 리스트
+     * parameters : API 파라미터 리스트
+    */
+    @Operation(summary = "회원 정보 조회") //API 상세 정보
     @GetMapping("/{id}")
-    fun getMember(@PathVariable id: String) : CommonResponse<ResMemberDTO> {
-        return memberService.findById(id)
-    }
+    fun getMember(@PathVariable id: Long) = memberService.findById(id)
 
     @Operation(summary = "회원 정보 저장")
     @PostMapping
-    fun saveMember(@RequestBody memberSaveDTO: ReqMemberSaveDTO) : CommonResponse<ResMemberDTO> {
-        return memberService.saveMember(memberSaveDTO)
-    }
+    fun saveMember(@RequestBody memberSaveDTO: ReqMemberSaveDTO) = memberService.saveMember(memberSaveDTO)
 
     @Operation(summary = "회원 정보 수정")
     @PatchMapping("/{id}")
     fun updateMember(
-        @Parameter(description = "member ID")@PathVariable id: String,
-        @RequestBody @Valid memberUpdateDTO: ReqMemberUpdateDTO
-    ) : CommonResponse<ResMemberDTO> {
-        return memberService.updateMember(memberUpdateDTO.setId(id))
-    }
+        @PathVariable id: Long,
+        @RequestBody @Valid memberUpdateDTO: ReqMemberUpdateDTO) = memberService.updateMember(memberUpdateDTO.setId(id))
 
     @Operation(summary = "회원 정보 삭제")
     @DeleteMapping("/{id}")
-    fun deleteMember(@PathVariable id: String) : ResponseEntity<Any> {
-        return ResponseEntity.ok(memberService.deleteById(id))
-    }
+    fun deleteMember(@PathVariable id: Long) : ResponseEntity<Any> = ResponseEntity.ok(memberService.deleteById(id))
+
 }

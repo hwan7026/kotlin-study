@@ -13,6 +13,13 @@ import org.springframework.data.mongodb.core.mapping.MongoMappingContext
 @EnableMongoAuditing
 class MongoConfig {
 
+    /**
+     * mongoDB 저장 시 _class 필드가 자동 생성 -> mongoConverter를 통해 _class 제거
+     * setMapKeyDotReplacement 를 통해 "-DOT" 설정
+     * @param mongoDatabaseFactory MongoDatabaseFactory?
+     * @param mongoMappingContext MongoMappingContext?
+     * @return MappingMongoConverter?
+     */
     @Bean
     fun mongoConverter(
         mongoDatabaseFactory: MongoDatabaseFactory?,

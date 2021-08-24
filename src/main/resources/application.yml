@@ -1,6 +1,6 @@
 #LOCAL
 server:
-  port: ${PORT:8080}
+  port: 8080
   error:
     whitelabel:
       enabled: false
@@ -28,7 +28,8 @@ spring:
         format_sql: true
         order_inserts: true
         order_updates: true
-    database: mysql
+    database: h2
+  # spring boot 에서 yml 설정 시 mongoDB 자동 등록
   data:
     mongodb:
       uri: mongodb+srv://admin:1234@cluster0.svzdu.mongodb.net

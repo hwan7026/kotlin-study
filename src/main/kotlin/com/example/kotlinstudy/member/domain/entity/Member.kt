@@ -12,18 +12,18 @@ import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.MongoId
 import java.time.LocalDateTime
+import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Schema(title = "고객 정보", hidden = true)
-@QueryEntity
-@Document
+@Entity
 class Member (
 
     @field:Schema(title = "고객 ID")
-    @field:MongoId
-    var id : ObjectId? = null,
+    @Id @GeneratedValue(strategy =GenerationType.IDENTITY)
+    var id : Long? = 0,
     @field:Schema(title = "이메일")
     var email : String? = null,
     @field:Schema(title = "이름")
@@ -58,7 +58,7 @@ class Member (
         phone = memberSaveDTO.phone
     )
     constructor(memberUpdateDTO: ReqMemberUpdateDTO) :this(
-        id = ObjectId(memberUpdateDTO.id.toString()),
+        id = memberUpdateDTO.id,
         email = memberUpdateDTO.email,
         name = memberUpdateDTO.name,
         gender = memberUpdateDTO.gender,

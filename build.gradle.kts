@@ -29,6 +29,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-data-rest")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    //kotlin 라이브러리 의존성 설정
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compileOnly("org.projectlombok:lombok")
@@ -40,6 +41,9 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-ui:${springDocVersion}")
     implementation("com.querydsl:querydsl-jpa")
     runtimeOnly("com.h2database:h2")
+
+    testCompileOnly("org.junit.jupiter:junit-jupiter:5.4.2")
+    testCompileOnly("org.assertj:assertj-core:3.11.1")
 }
 
 tasks.withType<KotlinCompile> {

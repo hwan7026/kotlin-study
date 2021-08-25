@@ -61,14 +61,14 @@ class MemberMemoControllerTest(
 
 
     @Test
-    fun getMemberMemo(){
+    fun `회원 메모 정보 테스트`(){
         mockMvc.perform(
             get("$MEMBER_MEMO_URL/1")
         ).andDo(print())
     }
 
     @Test
-    fun saveMemberMemo(){
+    fun `회원 메모 저장 테스트`(){
         val memberMemoSaveDTO = ReqMemberMemoSaveDTO(
             "title",
             "content",
@@ -83,7 +83,7 @@ class MemberMemoControllerTest(
     }
 
     @Test
-    fun `회원메모수정`(){
+    fun `회원 메모 수정`(){
         val memberMemoSaveDTO = ReqMemberMemoUpdateDTO(
             "title modify",
             "content modify",
@@ -101,7 +101,7 @@ class MemberMemoControllerTest(
     }
 
     @Test
-    fun `회원메모삭제`(){
+    fun `회원 메모 삭제`(){
         mockMvc.perform(
             delete("$MEMBER_MEMO_URL/$defaultMemberMemoObjectId")
         ).andExpect(status().isOk)

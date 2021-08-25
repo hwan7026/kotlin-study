@@ -1,7 +1,7 @@
 package com.example.kotlinstudy.member.controller
 
-import ReqMemberUpdateDTO
 import com.example.kotlinstudy.member.domain.dto.ReqMemberSaveDTO
+import com.example.kotlinstudy.member.domain.dto.ReqMemberUpdateDTO
 import com.example.kotlinstudy.member.domain.entity.Member
 import com.example.kotlinstudy.member.domain.enums.GenderType
 import com.example.kotlinstudy.member.repository.MemberRepository
@@ -63,9 +63,8 @@ class MemberControllerTest (
         )
     }
 
-    @DisplayName("회원 정보 저장 테스트")
     @Test
-    fun saveMember() {
+    fun `회원 정보 저장 테스트`() {
         val request = ReqMemberSaveDTO(
             "test@email.com",
             "password",
@@ -84,9 +83,8 @@ class MemberControllerTest (
             .andDo(print())
     }
 
-    @DisplayName("회원 정보 확인 테스트")
     @Test
-    fun getMemberTest() {
+    fun `회원 정보 확인 테스트`() {
         mockMvc.perform(
             get("$MEMBER_URL/$defaultMemberObjectId")
         )
@@ -95,7 +93,7 @@ class MemberControllerTest (
     }
 
     @Test
-    fun updateMember() {
+    fun `회원 정보 수정 테스트`() {
         val request = ReqMemberUpdateDTO(
             "update@email.com",
             "이승환",
@@ -113,7 +111,7 @@ class MemberControllerTest (
     }
 
     @Test
-    fun deleteMember() {
+    fun `회원 정보 삭제 테스트`() {
         this.mockMvc
             .perform(
                 delete("$MEMBER_URL/$defaultMemberObjectId"))

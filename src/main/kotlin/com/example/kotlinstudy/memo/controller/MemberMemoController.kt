@@ -3,11 +3,14 @@ package com.example.kotlinstudy.memo.controller
 import com.example.kotlinstudy.memo.domain.dto.ReqMemberMemoSaveDTO
 import com.example.kotlinstudy.memo.domain.dto.ReqMemberMemoUpdateDTO
 import com.example.kotlinstudy.memo.service.MemberMemoService
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/v1/member/memo")
+@Tag(name = "[회원 메모]", description = "MemberMemoController")
 class MemberMemoController (
     val memberMemoService: MemberMemoService
 ){
@@ -20,11 +23,11 @@ class MemberMemoController (
         = memberMemoService.saveMemberMemo(reqMemberMemoSaveDTO)
 
     @PatchMapping("/{id}")
-    fun updateMemberMemo(@PathVariable id: String, @RequestBody reqMemberMemoUpdateDTO : ReqMemberMemoUpdateDTO)
-    = memberMemoService.updateMemberMemoById(reqMemberMemoUpdateDTO.setId(id))
+    fun updateMemberMemo(@PathVariable id: String, @RequestBody @Valid reqMemberMemoUpdateDTO : ReqMemberMemoUpdateDTO)
+        = memberMemoService.updateMemberMemoById(reqMemberMemoUpdateDTO.setId(id))
 
     @DeleteMapping("/{id}")
-    fun deleteMemberMemo(@PathVariable id: String) : ResponseEntity<Any> =
-        ResponseEntity.ok(memberMemoService.deleteMemberMemoById(id))
+    fun deleteMemberMemo(@PathVariable id: String) : ResponseEntity<Any>
+        = ResponseEntity.ok(memberMemoService.deleteMemberMemoById(id))
 
 }

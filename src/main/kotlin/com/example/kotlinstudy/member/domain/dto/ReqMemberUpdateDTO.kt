@@ -1,8 +1,5 @@
-
+package com.example.kotlinstudy.member.domain.dto
 import com.example.kotlinstudy.member.domain.enums.GenderType
-import com.fasterxml.jackson.databind.PropertyNamingStrategies
-import com.fasterxml.jackson.databind.annotation.JsonNaming
-import com.sun.istack.NotNull
 import io.swagger.v3.oas.annotations.media.Schema
 import javax.persistence.EnumType
 import javax.persistence.Enumerated

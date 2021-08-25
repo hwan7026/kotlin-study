@@ -26,16 +26,15 @@ class MemberMemo (
     @MongoId
     var id : ObjectId? = null,
 ) : BaseEntity() {
+    fun updateInfo(memberMemoUpdateDTO: ReqMemberMemoUpdateDTO) {
+        this.title = memberMemoUpdateDTO.title
+        this.content = memberMemoUpdateDTO.content
+        this.memberId = memberMemoUpdateDTO.memberId
+    }
+
     constructor(memberMemoDTO: ReqMemberMemoSaveDTO) : this(
         title = memberMemoDTO.title,
         content = memberMemoDTO.content,
         memberId = memberMemoDTO.memberId
-    )
-
-    constructor(memberMemoUpdateDTO: ReqMemberMemoUpdateDTO) : this(
-        title = memberMemoUpdateDTO.title,
-        content = memberMemoUpdateDTO.content,
-        memberId = memberMemoUpdateDTO.memberId,
-        id = ObjectId(memberMemoUpdateDTO.id)
     )
 }

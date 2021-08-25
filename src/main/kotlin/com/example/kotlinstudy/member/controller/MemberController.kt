@@ -1,12 +1,9 @@
 package com.example.kotlinstudy.member.controller
 
-import ReqMemberUpdateDTO
-import ResMemberDTO
-import com.example.kotlinstudy.common.config.domain.CommonResponse
+import com.example.kotlinstudy.member.domain.dto.ReqMemberUpdateDTO
 import com.example.kotlinstudy.member.domain.dto.ReqMemberSaveDTO
 import com.example.kotlinstudy.member.service.MemberService
 import io.swagger.v3.oas.annotations.Operation
-import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -37,7 +34,8 @@ class MemberController(
     @PatchMapping("/{id}")
     fun updateMember(
         @PathVariable id: Long,
-        @RequestBody @Valid memberUpdateDTO: ReqMemberUpdateDTO) = memberService.updateMember(memberUpdateDTO.setId(id))
+        @RequestBody @Valid memberUpdateDTO: ReqMemberUpdateDTO
+    ) = memberService.updateMember(memberUpdateDTO.setId(id))
 
     @Operation(summary = "회원 정보 삭제")
     @DeleteMapping("/{id}")

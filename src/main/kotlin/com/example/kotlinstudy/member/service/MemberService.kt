@@ -1,13 +1,12 @@
 package com.example.kotlinstudy.member.service
 
-import ReqMemberUpdateDTO
+import com.example.kotlinstudy.member.domain.dto.ReqMemberUpdateDTO
 import ResMemberDTO
 import com.example.kotlinstudy.common.config.domain.CommonResponse
 import com.example.kotlinstudy.common.exception.DataNotFountException
 import com.example.kotlinstudy.member.domain.dto.ReqMemberSaveDTO
 import com.example.kotlinstudy.member.domain.entity.Member
 import com.example.kotlinstudy.member.repository.MemberRepository
-import org.bson.types.ObjectId
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime

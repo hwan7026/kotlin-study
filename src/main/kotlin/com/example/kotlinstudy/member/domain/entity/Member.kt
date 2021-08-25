@@ -1,6 +1,6 @@
 package com.example.kotlinstudy.member.domain.entity
 
-import ReqMemberUpdateDTO
+import com.example.kotlinstudy.member.domain.dto.ReqMemberUpdateDTO
 import com.example.kotlinstudy.common.domain.entity.BaseIncludeDeleteEntity
 import com.example.kotlinstudy.member.domain.dto.ReqMemberSaveDTO
 import com.example.kotlinstudy.member.domain.enums.GenderType

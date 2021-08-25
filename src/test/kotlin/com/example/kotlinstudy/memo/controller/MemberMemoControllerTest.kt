@@ -83,17 +83,21 @@ class MemberMemoControllerTest(
     }
 
     @Test
-    fun updateMemberMemo(){
+    fun `회원메모수정`(){
         val memberMemoSaveDTO = ReqMemberMemoUpdateDTO(
             "title modify",
             "content modify",
             1L
         )
-        mockMvc.perform(
-            patch("$MEMBER_MEMO_URL/$defaultMemberMemoObjectId")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(memberMemoSaveDTO))
-        ).andExpect(status().isOk).andDo(print())
+
+        this.mockMvc
+            .perform(
+                patch("$MEMBER_MEMO_URL/$defaultMemberMemoObjectId")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(mapper.writeValueAsString(memberMemoSaveDTO)))
+            .andExpect(status().isOk)
+            .andDo(print())
+
     }
 
     @Test

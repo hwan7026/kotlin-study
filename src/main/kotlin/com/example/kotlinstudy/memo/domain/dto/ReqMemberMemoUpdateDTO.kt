@@ -1,7 +1,6 @@
 package com.example.kotlinstudy.memo.domain.dto
 
 import io.swagger.v3.oas.annotations.media.Schema
-import org.bson.types.ObjectId
 
 class ReqMemberMemoUpdateDTO (
     @field:Schema(title = "제목")
@@ -14,7 +13,7 @@ class ReqMemberMemoUpdateDTO (
     @field:Schema(title = "ID")
     var id: String? = null
 
-    fun setId(id: String): ReqMemberMemoUpdateDTO {
+    fun setId(id: String?): ReqMemberMemoUpdateDTO {
         this.id = id
         return this
     }

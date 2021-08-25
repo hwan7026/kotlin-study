@@ -16,6 +16,8 @@ class CommonResponse<T> (
 
     constructor(content: T) : this(HttpStatus.OK.value(), HttpStatus.OK.reasonPhrase, content)
 
+    constructor(httpStatus: HttpStatus, message: String? = null) : this( httpStatus.value(), message ?: httpStatus.reasonPhrase, null)
+
     override fun toString(): String {
         return "CommonResponse(code=$code, message='$message', content=$content)"
     }

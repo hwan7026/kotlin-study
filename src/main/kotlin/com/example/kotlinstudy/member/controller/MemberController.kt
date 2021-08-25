@@ -11,7 +11,7 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/v1/member")
-// API 그룹 설정 및 태그 설명(name 같으면 그룹으로 설정)
+// API 그룹 설정 및 태그 설명(name 같으면 그룹으로 설정) / 클래스를 Swagger 리소스로 표시
 @Tag(name = "[회원]", description = "MemberController")
 class MemberController(
     val memberService: MemberService
@@ -21,6 +21,8 @@ class MemberController(
      * description : API 대한 상세 설명
      * responses : API Response 리스트
      * parameters : API 파라미터 리스트
+     *
+     * @Operation : 특정 경로에 대한 작업 또는 일반적으로 HTTP 메서드 설명
     */
     @Operation(summary = "회원 정보 조회") //API 상세 정보
     @GetMapping("/{id}")

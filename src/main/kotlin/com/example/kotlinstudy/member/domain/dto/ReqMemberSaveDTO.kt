@@ -9,6 +9,7 @@ import javax.validation.constraints.NotEmpty
 
 class ReqMemberSaveDTO (
 
+    /* @Schema : swagger 모델에 대한 추가 정보 제공*/
     @field:NotNull
     @field:Schema(title = "이메일")
     var email : String? = null,

@@ -31,18 +31,7 @@ class SwaggerConfig {
      */
     @Bean
     fun customOpenAPI(@Value("\${springdoc.version}") appVersion: String): OpenAPI {
-        val basicAuth = SecurityScheme()
-            .type(SecurityScheme.Type.HTTP)
-            .scheme("bearer")
-            .bearerFormat("JWT")
-            .`in`(SecurityScheme.In.HEADER)
-            .name("Authorization")
-
-        val securityItem = SecurityRequirement().addList("bearer-jwt")
-
         return OpenAPI()
-            .components(Components().addSecuritySchemes("bearer-jwt", basicAuth))
-            .addSecurityItem(securityItem)
             .info(
                 io.swagger.v3.oas.models.info.Info().title(appTitle).version(appVersion)
                     .license(License().name("Apache 2.0").url("https://springdoc.org"))

@@ -34,10 +34,11 @@ spring:
     mongodb:
       uri: mongodb+srv://admin:1234@cluster0.svzdu.mongodb.net
       database: myFirstDatabase
+  # 동일한 이름을 가진 Bean 등록 과정 중에  BeanDefinitionOverrideException 발생 -> 해당 설정으로 비활성화 가능
   main:
     allow-bean-definition-overriding: true
 springdoc:
-  version: ${spring.application.version}
+  version: "V0.01"
   app-url: http://localhost:${server.port}
   app-description: Default Skeleton URL
   app-title: SellerMill Skeleton API
@@ -45,7 +46,7 @@ springdoc:
   api-docs:
     groups:
       enabled: true
-    # springdoc-openapi ????? ???
+    # springdoc-openapi
     enabled: true
     # /api-docs endpoint custom path
     path: /v3/api-docs
